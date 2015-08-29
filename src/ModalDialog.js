@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import BootstrapMixin from './BootstrapMixin';
 
 const ModalDialog = React.createClass({
+
   mixins: [BootstrapMixin],
 
   propTypes: {
