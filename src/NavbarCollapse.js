@@ -10,7 +10,7 @@ let NavbarCollapse = React.createClass({
   },
 
   render() {
-    let { children, ...props } = this.props;
+    let { children, onSelect, ...props } = this.props;
     let {
       $bs_navbar_bsClass: bsClass = 'navbar',
       $bs_navbar_expanded: expanded,
@@ -19,7 +19,9 @@ let NavbarCollapse = React.createClass({
     return (
       <Collapse in={expanded} {...props}>
         <div className={tbsUtils.prefix({ bsClass }, 'collapse')}>
-          { children }
+          { React.Children.map(this.props.children, function(child) {
+            return React.cloneElement(child, {onSelect});
+          }) }
         </div>
       </Collapse>
     );

@@ -112,6 +112,10 @@ let Navbar = React.createClass({
     };
   },
 
+  handleSelect() {
+    this.props.onToggle(false);
+  },
+
   handleToggle() {
     this.props.onToggle(!this.props.expanded);
   },
@@ -162,10 +166,14 @@ let Navbar = React.createClass({
     classes[tbsUtils.prefix(this.props, 'fixed-bottom')] = fixedBottom;
     classes[tbsUtils.prefix(this.props, 'static-top')] = staticTop;
 
+    var handleSelect = this.handleSelect;
     return (
       <ComponentClass {...props} className={classNames(className, classes)}>
         <Grid fluid={fluid}>
-          { children }
+          { React.Children.map(this.props.children, function(child) {
+            //TODO: probably should only do this for Navbar.Collapse children
+            return React.cloneElement(child, {onSelect: handleSelect});
+          }) }
         </Grid>
       </ComponentClass>
     );
